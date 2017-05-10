@@ -1,10 +1,11 @@
 # Sample AWS lambda with Java and gradle
 
 The goal of this project is to provide a sample aws lambda using gradle.
-It will do following:
 
-* for JSON list will return random element as a single element list. Like this:
-for 
+It has two handlers doing following:
+
+* `ListHandler` will return a single element list with a random element from passed JSON list. 
+Example: for 
 `
 [
     'apples',
@@ -19,7 +20,10 @@ will return
    'oranges'
 ]
 `
-* be buildable into zip deployment unit using gradle
+* `DynamoDBHandler` will try to save all passed elements to a `TEST_TABLE` DynamoDB table. 
+Notice that this handler doesnt implement `com.amazonaws.services.lambda.runtime.RequestHandler`.
+When deploying, be sure to provide lambda with the role allowing access to DynamoDB table
+* all of this will is buildable into zip deployment unit using gradle
 
 ## How to build
 Simply run `gradle build`
